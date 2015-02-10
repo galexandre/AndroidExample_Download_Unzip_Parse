@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
 import project.geoffrey.fr.appdownloaddata.Services.DownloadDataImpl;
+import project.geoffrey.fr.appdownloaddata.Services.Parser;
 import project.geoffrey.fr.appdownloaddata.Services.Unzip;
 import project.geoffrey.fr.appdownloaddata.Services.UnzipImpl;
 
@@ -17,6 +18,7 @@ public class Controller {
     private Context myContext;
     private DownloadData dd;
     private Unzip uz;
+    private Parser p;
     /**
      * Contructor of a controller
      * @param ctx a Context (android.content.Context)
@@ -41,5 +43,9 @@ public class Controller {
 
     public void deleteZipFile(){
         uz.deleteZipFile();
+    }
+
+    public void parseXmlFile(){
+        p.parse();
     }
 }

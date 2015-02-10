@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         ctl.deleteZipFile();
+        ctl.parseXmlFile();
     }
 
 

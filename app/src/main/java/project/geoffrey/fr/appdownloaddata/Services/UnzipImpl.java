@@ -24,6 +24,7 @@ public class UnzipImpl implements Unzip {
     private ZipEntry ze=null;
     private byte[] buff = new byte[1024];
     private int i=0;
+    private String nameOftheUnzipFile="";
 
     public UnzipImpl(String dataLocation, String nameOfZipFile){
         this.locationZipFile=dataLocation;
@@ -37,7 +38,7 @@ public class UnzipImpl implements Unzip {
 
 
         ze=zi.getNextEntry();
-        Log.e("Zip", "Val ze: " + ze.getName());
+        this.nameOftheUnzipFile=ze.getName();
         while(ze!=null){
             Log.e("Zip","Name of the file"+ze.getName());
             FileOutputStream foutput = new FileOutputStream(Environment.getExternalStorageDirectory().toString()+this.locationZipFile+"/"+ze.getName());
@@ -63,6 +64,10 @@ public class UnzipImpl implements Unzip {
             File e = files[k];
             Log.e("Files","File: "+e.getName() );
         }
+    }
+
+    public String getNameOftheUnzipFile() {
+        return nameOftheUnzipFile;
     }
 
 

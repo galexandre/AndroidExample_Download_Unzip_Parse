@@ -2,11 +2,15 @@ package project.geoffrey.fr.appdownloaddata.Controller;
 
 import android.content.Context;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
 import project.geoffrey.fr.appdownloaddata.Services.DownloadDataImpl;
 import project.geoffrey.fr.appdownloaddata.Services.Parser;
+import project.geoffrey.fr.appdownloaddata.Services.ParserImpl;
 import project.geoffrey.fr.appdownloaddata.Services.Unzip;
 import project.geoffrey.fr.appdownloaddata.Services.UnzipImpl;
 
@@ -42,10 +46,11 @@ public class Controller {
     }
 
     public void deleteZipFile(){
-        uz.deleteZipFile();
+        //uz.deleteZipFile();
     }
 
-    public void parseXmlFile(){
+    public void parseXmlFile() throws IOException, XmlPullParserException {
+        p = new ParserImpl(uz.getNameOftheUnzipFile());
         p.parse();
     }
 }

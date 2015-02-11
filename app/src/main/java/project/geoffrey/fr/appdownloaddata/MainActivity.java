@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import project.geoffrey.fr.appdownloaddata.Controller.Controller;
@@ -27,8 +30,16 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ctl.deleteZipFile();
-        ctl.parseXmlFile();
+        //ctl.deleteZipFile();
+        try {
+            ctl.parseXmlFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

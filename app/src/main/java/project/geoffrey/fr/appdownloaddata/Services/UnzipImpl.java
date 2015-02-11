@@ -39,15 +39,14 @@ public class UnzipImpl implements Unzip {
 
         ze=zi.getNextEntry();
         this.nameOftheUnzipFile=ze.getName();
+        Log.e("Zip","Name of the file: "+this.nameOftheUnzipFile);
         while(ze!=null){
-            Log.e("Zip","Name of the file"+ze.getName());
             FileOutputStream foutput = new FileOutputStream(Environment.getExternalStorageDirectory().toString()+this.locationZipFile+"/"+ze.getName());
             while ((i=zi.read(this.buff))!=-1){
                 foutput.write(this.buff,0,i);
             }
             zi.closeEntry();
             foutput.close();
-            Log.e("Zip",foutput.toString());
             ze=zi.getNextEntry();
         }
         zi.close();
@@ -56,15 +55,22 @@ public class UnzipImpl implements Unzip {
     public void deleteZipFile(){
         File dir = new File(this.nameOfFile);
         dir.delete();
+    }
+
+    /**
+     * Delete all the files in the path
+     */
+    public void deleteAllFiles(){
+        //Just see the differents files in the current directory
         String path = Environment.getExternalStorageDirectory().toString()+this.locationZipFile;
-        Log.e("Files","Path "+path);
         File f = new File(path);
         File files[] = f.listFiles();
         for(int k=0; k<files.length;k++){
             File e = files[k];
-            Log.e("Files","File: "+e.getName() );
+            e.delete();
         }
     }
+
 
     public String getNameOftheUnzipFile() {
         return nameOftheUnzipFile;

@@ -17,6 +17,7 @@ public class Station {
     private List<String> services;
     private List<String> price;
     private Map<String, Float> prices;
+    private String zipcode;
 
     public Station(String id, float longitude, float latitude, String adress, String city, String open, List<String> services, List<String> price) {
         this.id = id;
@@ -29,13 +30,14 @@ public class Station {
         this.price = price;
     }
 
-    public Station(String id, float longitude, float latitude, String city, String adress, Map<String, Float> prices) {
+    public Station(String id, float longitude, float latitude, String city, String adress, Map<String, Float> prices, String zipcode) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
         this.city = city;
         this.adress = adress;
         this.prices = prices;
+        this.zipcode=zipcode;
     }
 
     public String getAdress() {
@@ -100,5 +102,21 @@ public class Station {
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public Map<String, Float> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Map<String, Float> prices) {
+        this.prices = prices;
     }
 }

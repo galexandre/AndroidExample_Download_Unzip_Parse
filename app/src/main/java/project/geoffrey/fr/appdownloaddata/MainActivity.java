@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //ctl.deleteZipFile();
+
         try {
             ctl.parseXmlFile();
         } catch (FileNotFoundException e) {
@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ctl.deleteZipFile();
     }
 
 

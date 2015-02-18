@@ -64,26 +64,24 @@ public class ParserImpl implements Parser {
             }
 
             String name=parser.getName();
-            Log.e("Parse","pdv: "+name);
             if(name.equals("pdv")){
                 pvd.add(readStation(parser));
             }
         }
-        Log.e("Parser","Taille de la liste:"+pvd.size());
-        for(int i=0; i<pvd.size();i++){
-            /*Log.e("Parser","id: "+pvd.get(i).getId());
-            Log.e("Parser","adress: "+pvd.get(i).getAdress());
+        //Log.e("Parser","Taille de la liste:"+pvd.size());
+        //for(int i=0; i<pvd.size();i++){
+            //Log.e("Parser","id: "+pvd.get(i).getId());
+            /*Log.e("Parser","adress: "+pvd.get(i).getAdress());
             Log.e("Parser","city: "+pvd.get(i).getCity());
             Log.e("Parser","longitude: "+pvd.get(i).getLongitude());
             Log.e("Parser","latitude: "+pvd.get(i).getLatitude());*/
             //Log.e("Parser","prix: "+pvd.get(i).getPrices().size());
-        }
+        //}
     }
 
     public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG,ns,"pdv");
         String id = parser.getAttributeValue(0);
-        Log.e("Parse","Id"+id);
         if(parser.getAttributeValue(1).equals("")){
             this.latitude=0;
         }else{
@@ -107,15 +105,16 @@ public class ParserImpl implements Parser {
             }
 
             String name = parser.getName();
-            Log.e("Parser","Name: "+name);
             if(name.equals("adresse")){
                 adress=readAdress(parser);
             }else if (name.equals("ville")){
                 city = readCity(parser);
             }else if (name.equals("prix")) {
                 if (parser.getAttributeCount()!=0){
-                    Log.e("Parse","Size of the third element"+parser.getAttributeValue(3));
-                    carburants.put(parser.getAttributeValue(0), Float.valueOf(parser.getAttributeValue(3)));
+                    String nameOfGas= parser.getAttributeValue(0);
+                    float priceOfGas = Float.valueOf(parser.getAttributeValue(3))/1000;
+                    Log.e("Parse","Gas name: "+ nameOfGas+ " Price: "+ priceOfGas);
+                    carburants.put(nameOfGas, priceOfGas);//because format is "1234"
                 }else{
                     carburants.put("null", (float) 0);
                 }

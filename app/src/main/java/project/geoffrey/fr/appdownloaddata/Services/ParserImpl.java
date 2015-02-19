@@ -68,15 +68,19 @@ public class ParserImpl implements Parser {
                 pvd.add(readStation(parser));
             }
         }
-        //Log.e("Parser","Taille de la liste:"+pvd.size());
-        //for(int i=0; i<pvd.size();i++){
-            //Log.e("Parser","id: "+pvd.get(i).getId());
+        Log.e("Parser","Taille de la liste:"+pvd.size());
+        for(int i=0; i<pvd.size();i++){
+            Log.e("Parser","id: "+pvd.get(i).getId());
             /*Log.e("Parser","adress: "+pvd.get(i).getAdress());
             Log.e("Parser","city: "+pvd.get(i).getCity());
             Log.e("Parser","longitude: "+pvd.get(i).getLongitude());
             Log.e("Parser","latitude: "+pvd.get(i).getLatitude());*/
             //Log.e("Parser","prix: "+pvd.get(i).getPrices().size());
-        //}
+            for(int e=0; e<pvd.get(i).getPrices().size();e++){
+                //Log.e("Parser","See price in object: "+pvd.get(i).getPrices().get(pvd.get(i).get));
+            }
+            Log.e("Parser","Number of services: "+pvd.get(i).getServices().size());
+        }
     }
 
     public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {
@@ -105,6 +109,7 @@ public class ParserImpl implements Parser {
             }
 
             String name = parser.getName();
+            Log.e("Parse","Name: "+name);
             if(name.equals("adresse")){
                 adress=readAdress(parser);
             }else if (name.equals("ville")){
@@ -113,20 +118,26 @@ public class ParserImpl implements Parser {
                 if (parser.getAttributeCount()!=0){
                     String nameOfGas= parser.getAttributeValue(0);
                     float priceOfGas = Float.valueOf(parser.getAttributeValue(3))/1000;
-                    Log.e("Parse","Gas name: "+ nameOfGas+ " Price: "+ priceOfGas);
                     carburants.put(nameOfGas, priceOfGas);//because format is "1234"
                 }else{
                     carburants.put("null", (float) 0);
                 }
+                parser.next();
+            }else if (name.equals("services")){
+                services=readServices(parser);
+                //parser.nextTag();
                 parser.next();
             }else{
                 skip(parser);
             }
         }
 
-        Station st = new Station(id,longitude,latitude,city,adress, carburants,cp);
+        Station st = new Station(id,longitude,latitude,city,adress, carburants,cp,services);
+        //services.clear();
         return st;
     }
+
+
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -145,14 +156,26 @@ public class ParserImpl implements Parser {
         }
     }
 
-    public String readAdress(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private List<String> readServices(XmlPullParser parser) throws IOException, XmlPullParserException {
+        ArrayList<String> myList = new ArrayList<String>();
+       // while(parser.getName().equals("service")){
+            parser.require(XmlPullParser.START_TAG, ns, "service");
+            String res = readText(parser);
+            myList.add(res);
+            parser.require(XmlPullParser.END_TAG, ns, "service");
+            parser.next();
+        //}
+        return (List<String>) myList.clone();
+    }
+
+    private String readAdress(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "adresse");
         String title = readText(parser);
         parser.require(XmlPullParser.END_TAG, ns, "adresse");
         return title;
     }
 
-    public String readCity(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private String readCity(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "ville");
         String name = readText(parser);
         parser.require(XmlPullParser.END_TAG, ns, "ville");

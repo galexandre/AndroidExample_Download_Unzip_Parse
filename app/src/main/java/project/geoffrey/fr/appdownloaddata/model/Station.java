@@ -30,7 +30,7 @@ public class Station {
         this.price = price;
     }
 
-    public Station(String id, float longitude, float latitude, String city, String adress, Map<String, Float> prices, String zipcode) {
+    public Station(String id, float longitude, float latitude, String city, String adress, Map<String, Float> prices, String zipcode,List<String> services) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -38,6 +38,7 @@ public class Station {
         this.adress = adress;
         this.prices = prices;
         this.zipcode=zipcode;
+        this.services=services;
     }
 
     public String getAdress() {

@@ -6,6 +6,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
@@ -41,7 +42,7 @@ public class Controller {
         dd.download();
     }
 
-    public void UnzipFile() throws IOException {
+    public void UnzipFile() throws IOException, ParseException {
         uz = new UnzipImpl("/Download","data.zip");
         uz.unzipData();
         Date k = uz.getDateOfUnzipFile();

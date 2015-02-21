@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 import project.geoffrey.fr.appdownloaddata.Controller.Controller;
 
@@ -28,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
         try {
             ctl.UnzipFile();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 

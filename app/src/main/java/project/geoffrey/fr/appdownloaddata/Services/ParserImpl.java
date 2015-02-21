@@ -23,18 +23,21 @@ import project.geoffrey.fr.appdownloaddata.model.Station;
  */
 public class ParserImpl implements Parser {
 
-    private List<Station> pvd = new ArrayList<Station>();
+    private List<Station> pvd = new ArrayList<Station>(15);
 
     private String myFileName="";
 
     private float latitude;
     private float longitude;
+    private static final String ns = null;
 
     public ParserImpl(String fileName){
         this.myFileName=fileName;
     }
 
-    private static final String ns = null;
+
+
+
 
     /**
      *

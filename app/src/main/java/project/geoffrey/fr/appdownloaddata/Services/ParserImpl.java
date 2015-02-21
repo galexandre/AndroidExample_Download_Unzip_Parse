@@ -70,16 +70,25 @@ public class ParserImpl implements Parser {
         }
         Log.e("Parser","Taille de la liste:"+pvd.size());
         for(int i=0; i<pvd.size();i++){
-            Log.e("Parser","id: "+pvd.get(i).getId());
+            if (pvd.get(i).getId().equals("95870008")){
+                Log.e("Lattitude:","Val: "+pvd.get(i).getLatitude());
+                Log.e("Longitude:","Val: "+pvd.get(i).getLongitude());
+            }
+
+            if(pvd.get(i).getId().equals("32460001")){
+                Log.e("Lattitude:","Val: "+pvd.get(i).getLatitude());
+                Log.e("Longitude:","Val: "+pvd.get(i).getLongitude());
+            }
+            //Log.e("Parser","id: "+pvd.get(i).getId());
             /*Log.e("Parser","adress: "+pvd.get(i).getAdress());
             Log.e("Parser","city: "+pvd.get(i).getCity());
             Log.e("Parser","longitude: "+pvd.get(i).getLongitude());
             Log.e("Parser","latitude: "+pvd.get(i).getLatitude());*/
             //Log.e("Parser","prix: "+pvd.get(i).getPrices().size());
-            for(int e=0; e<pvd.get(i).getPrices().size();e++){
+            //for(int e=0; e<pvd.get(i).getPrices().size();e++){
                 //Log.e("Parser","See price in object: "+pvd.get(i).getPrices().get(pvd.get(i).get));
-            }
-            Log.e("Parser","Number of services: "+pvd.get(i).getServices().size());
+            //}
+            //Log.e("Parser","Number of services: "+pvd.get(i).getServices().size());
         }
     }
 
@@ -89,14 +98,17 @@ public class ParserImpl implements Parser {
         if(parser.getAttributeValue(1).equals("")){
             this.latitude=0;
         }else{
-            this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 100 000
+            this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 10 000
+            //Log.e("Parse","Latitude: "+latitude);
         }
 
         if (parser.getAttributeValue(2).equals("")){
             longitude=0;
         }else{
-            this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 100 000
+            this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 10 000
+            //Log.e("Parse","Longitude: "+longitude);
         }
+
         String cp = parser.getAttributeValue(3);
         String adress="";
         String city="";
@@ -109,7 +121,7 @@ public class ParserImpl implements Parser {
             }
 
             String name = parser.getName();
-            Log.e("Parse","Name: "+name);
+            //Log.e("Parse","Name: "+name);
             if(name.equals("adresse")){
                 adress=readAdress(parser);
             }else if (name.equals("ville")){
@@ -123,11 +135,11 @@ public class ParserImpl implements Parser {
                     carburants.put("null", (float) 0);
                 }
                 parser.next();
-            }else if (name.equals("services")){
-                services=readServices(parser);
+            }//else if (name.equals("services")){
+                //services=readServices(parser);
                 //parser.nextTag();
-                parser.next();
-            }else{
+                //parser.next();
+            /*}*/else{
                 skip(parser);
             }
         }

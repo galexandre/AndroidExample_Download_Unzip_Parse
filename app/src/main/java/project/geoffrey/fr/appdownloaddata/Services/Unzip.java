@@ -10,4 +10,5 @@ public interface Unzip {
     public void deleteZipFile();
     public void deleteAllFiles();
     public String getNameOftheUnzipFile();
+    public java.util.Date getDateOfUnzipFile();
 }

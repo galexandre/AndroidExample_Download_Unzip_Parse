@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -53,8 +54,9 @@ public class UnzipImpl implements Unzip {
     }
 
     public void deleteZipFile(){
-        File dir = new File(this.nameOfFile);
-        dir.delete();
+        //File dir = new File(this.nameOfFile);
+        //dir.delete();
+        deleteAllFiles();
     }
 
     /**
@@ -65,10 +67,13 @@ public class UnzipImpl implements Unzip {
         String path = Environment.getExternalStorageDirectory().toString()+this.locationZipFile;
         File f = new File(path);
         File files[] = f.listFiles();
+        Log.e("Before delete","Files in directory "+f.listFiles().length);
         for(int k=0; k<files.length;k++){
             File e = files[k];
+            Log.e("Delete all files","File: "+e.getName());
             e.delete();
         }
+        Log.e("After delete","Files in directory "+f.listFiles().length);
     }
 
 
@@ -76,5 +81,13 @@ public class UnzipImpl implements Unzip {
         return nameOftheUnzipFile;
     }
 
+    public Date getDateOfUnzipFile(){
+        String res = nameOftheUnzipFile.split("_")[2];
+        String ret=res.substring(0,8);
+        //@TODO
+        Log.e("Unzip","Date: "+ret);
+        Date date = new Date();
+        return date;
+    }
 
 }

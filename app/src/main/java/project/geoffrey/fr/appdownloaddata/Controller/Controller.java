@@ -11,6 +11,8 @@ import java.util.Date;
 
 import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
 import project.geoffrey.fr.appdownloaddata.Services.DownloadDataImpl;
+import project.geoffrey.fr.appdownloaddata.Services.Localization.Localization;
+import project.geoffrey.fr.appdownloaddata.Services.Localization.LocalizationImpl;
 import project.geoffrey.fr.appdownloaddata.Services.Parser;
 import project.geoffrey.fr.appdownloaddata.Services.ParserImpl;
 import project.geoffrey.fr.appdownloaddata.Services.Unzip;
@@ -25,12 +27,14 @@ public class Controller {
     private DownloadData dd;
     private Unzip uz;
     private Parser p;
+    private Localization l;
     /**
      * Contructor of a controller
      * @param ctx a Context (android.content.Context)
      */
     public Controller(Context ctx){
         this.myContext=ctx;
+        this.l = new LocalizationImpl(myContext);
     }
 
     /**
@@ -53,7 +57,8 @@ public class Controller {
     }
 
     public void parseXmlFile() throws IOException, XmlPullParserException {
-        p = new ParserImpl(uz.getNameOftheUnzipFile());
+
+        p = new ParserImpl(uz.getNameOftheUnzipFile(),l);
         p.parse();
     }
 }

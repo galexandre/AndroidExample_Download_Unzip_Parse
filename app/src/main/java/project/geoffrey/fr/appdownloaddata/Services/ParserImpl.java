@@ -1,5 +1,6 @@
 package project.geoffrey.fr.appdownloaddata.Services;
 
+import android.location.Location;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project.geoffrey.fr.appdownloaddata.Services.Localization.Localization;
 import project.geoffrey.fr.appdownloaddata.model.Station;
 
 /**
@@ -23,16 +25,18 @@ import project.geoffrey.fr.appdownloaddata.model.Station;
  */
 public class ParserImpl implements Parser {
 
-    private List<Station> pvd = new ArrayList<Station>(15);
-
+    private List<Station> pvd = new ArrayList<Station>();
     private String myFileName="";
 
     private float latitude;
     private float longitude;
+    private Localization myLocation;
+
     private static final String ns = null;
 
-    public ParserImpl(String fileName){
+    public ParserImpl(String fileName, Localization l){
         this.myFileName=fileName;
+        this.myLocation=l;
     }
 
 
@@ -68,20 +72,23 @@ public class ParserImpl implements Parser {
 
             String name=parser.getName();
             if(name.equals("pdv")){
-                pvd.add(readStation(parser));
+                Station st = readStation(parser);
+                Location locationStation = new Location("test");
+                locationStation.setLatitude(st.getLatitude());
+                locationStation.setLongitude(st.getLongitude());
+                //return distance in meter
+                float distance = myLocation.getCurrentPosition().distanceTo(locationStation);
+                //Log.e("Parse","locazion: lat: "+String.valueOf(myLocation.getCurrentPosition().getLatitude()) + " long: "+myLocation.getCurrentPosition().getLongitude());
+                if(distance <= 50000){
+                    Log.e("Parser","distance: "+distance);
+                    pvd.add(st);
+                }
+
             }
         }
         Log.e("Parser","Taille de la liste:"+pvd.size());
         for(int i=0; i<pvd.size();i++){
-            if (pvd.get(i).getId().equals("95870008")){
-                Log.e("Lattitude:","Val: "+pvd.get(i).getLatitude());
-                Log.e("Longitude:","Val: "+pvd.get(i).getLongitude());
-            }
 
-            if(pvd.get(i).getId().equals("32460001")){
-                Log.e("Lattitude:","Val: "+pvd.get(i).getLatitude());
-                Log.e("Longitude:","Val: "+pvd.get(i).getLongitude());
-            }
             //Log.e("Parser","id: "+pvd.get(i).getId());
             /*Log.e("Parser","adress: "+pvd.get(i).getAdress());
             Log.e("Parser","city: "+pvd.get(i).getCity());

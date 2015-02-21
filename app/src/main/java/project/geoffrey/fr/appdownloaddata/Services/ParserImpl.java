@@ -26,6 +26,7 @@ import project.geoffrey.fr.appdownloaddata.model.Station;
 public class ParserImpl implements Parser {
 
     private List<Station> pvd = new ArrayList<Station>();
+    private List<Float> distances = new ArrayList<>();
     private String myFileName="";
 
     private float latitude;
@@ -82,6 +83,7 @@ public class ParserImpl implements Parser {
                 if(distance <= 50000){
                     Log.e("Parser","distance: "+distance);
                     pvd.add(st);
+                    distances.add(distance);
                 }
 
             }
@@ -223,5 +225,9 @@ public class ParserImpl implements Parser {
 
     public List<Station> getPvd() {
         return pvd;
+    }
+
+    public List<Float> getDistances(){
+        return this.distances;
     }
 }

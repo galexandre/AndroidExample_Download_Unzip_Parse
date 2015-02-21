@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
 import project.geoffrey.fr.appdownloaddata.Services.DownloadDataImpl;
@@ -17,6 +18,7 @@ import project.geoffrey.fr.appdownloaddata.Services.Parser;
 import project.geoffrey.fr.appdownloaddata.Services.ParserImpl;
 import project.geoffrey.fr.appdownloaddata.Services.Unzip;
 import project.geoffrey.fr.appdownloaddata.Services.UnzipImpl;
+import project.geoffrey.fr.appdownloaddata.model.Station;
 
 /**
  * Created by Pygmy on 08/02/15.
@@ -55,10 +57,16 @@ public class Controller {
     public void deleteZipFile(){
         uz.deleteZipFile();
     }
-
     public void parseXmlFile() throws IOException, XmlPullParserException {
-
         p = new ParserImpl(uz.getNameOftheUnzipFile(),l);
         p.parse();
+    }
+
+    public List<Station> getAllStations(){
+        return p.getPvd();
+    }
+
+    public List<Float> getDistance(){
+        return p.getDistances();
     }
 }

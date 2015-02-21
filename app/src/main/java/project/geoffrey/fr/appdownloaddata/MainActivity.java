@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -18,10 +20,15 @@ public class MainActivity extends ActionBarActivity {
 
     private Controller ctl;
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
+    private ArrayAdapter arS;
+    private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Create Graphic User Interface
+
 
         //We call the controller
         ctl = new Controller(this.getApplicationContext());
@@ -44,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         ctl.deleteZipFile();
+
     }
 
 

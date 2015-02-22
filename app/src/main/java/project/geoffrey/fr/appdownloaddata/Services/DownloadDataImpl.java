@@ -22,7 +22,7 @@ public class DownloadDataImpl implements DownloadData {
     public DownloadDataImpl(Context ctx, String url){
         this.myContext=ctx;
         this.url=url;
-        this.fileLocation="/Download";
+        this.fileLocation="/DataDownload";
     }
 
     /**

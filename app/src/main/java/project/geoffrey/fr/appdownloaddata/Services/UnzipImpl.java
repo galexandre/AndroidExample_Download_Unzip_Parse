@@ -71,6 +71,7 @@ public class UnzipImpl implements Unzip {
         String path = Environment.getExternalStorageDirectory().toString()+this.locationZipFile;
         File f = new File(path);
         File files[] = f.listFiles();
+        Log.e("Delete","Path"+path);
         Log.e("Before delete","Files in directory "+f.listFiles().length);
         for(int k=0; k<files.length;k++){
             File e = files[k];

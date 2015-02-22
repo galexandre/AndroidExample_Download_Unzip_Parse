@@ -50,7 +50,7 @@ public class ParserImpl implements Parser {
      * @throws XmlPullParserException
      */
     public void parse() throws IOException, XmlPullParserException {
-        InputStream is = new FileInputStream(Environment.getExternalStorageDirectory()+"/Download/"+this.myFileName);
+        InputStream is = new FileInputStream(Environment.getExternalStorageDirectory()+"/DataDownload/"+this.myFileName);
         XmlPullParser xpp = Xml.newPullParser();
         xpp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
         xpp.setInput(is,null);
@@ -89,7 +89,7 @@ public class ParserImpl implements Parser {
             }
         }
         Log.e("Parser","Taille de la liste:"+pvd.size());
-        for(int i=0; i<pvd.size();i++){
+        //for(int i=0; i<pvd.size();i++){
 
             //Log.e("Parser","id: "+pvd.get(i).getId());
             /*Log.e("Parser","adress: "+pvd.get(i).getAdress());
@@ -101,7 +101,7 @@ public class ParserImpl implements Parser {
                 //Log.e("Parser","See price in object: "+pvd.get(i).getPrices().get(pvd.get(i).get));
             //}
             //Log.e("Parser","Number of services: "+pvd.get(i).getServices().size());
-        }
+        //}
     }
 
     public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {

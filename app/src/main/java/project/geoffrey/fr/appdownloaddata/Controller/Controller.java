@@ -49,7 +49,7 @@ public class Controller {
     }
 
     public void UnzipFile() throws IOException, ParseException {
-        uz = new UnzipImpl("/Download","data.zip");
+        uz = new UnzipImpl("/DataDownload","data.zip");
         uz.unzipData();
         Date k = uz.getDateOfUnzipFile();
     }

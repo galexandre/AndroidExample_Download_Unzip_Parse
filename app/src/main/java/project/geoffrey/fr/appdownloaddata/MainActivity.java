@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
     private ArrayAdapter arS;
     private ListView lv;
-    String[] countryArray = {"India", "Pakistan", "USA", "UK"};
+    //String[] countryArray = {"India", "Pakistan", "USA", "UK"};
     List<String> stations = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +60,18 @@ public class MainActivity extends ActionBarActivity {
 
            String adress=ctl.getAllStations().get(i).getAdress();
            String city=ctl.getAllStations().get(i).getCity();
+
            float distance = ctl.getDistance().get(i);
+           String gasNamePrice = "Gazole "+ctl.getAllStations().get(i).getPrices().get("Gazole") +
+                   " SP95 "+ctl.getAllStations().get(i).getPrices().get("SP95") +
+                   " SP98 "+ctl.getAllStations().get(i).getPrices().get("SP98");
+
+
            if(distance >=1000){
                distance=distance/1000;
-               stations.add(adress+" "+city + " "+ distance + " km");
+               stations.add(adress+" "+city + " "+ distance + " km " + gasNamePrice);
            }else {
-               stations.add(adress+" "+city +" "+ distance + " m");
+               stations.add(adress+" "+city +" "+ distance + " m " + gasNamePrice);
            }
 
 

@@ -39,6 +39,7 @@ public class LocalizationImpl implements Localization, LocationListener {
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         this.lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);/* new Location(LocationManager.GPS_PROVIDER);*/
         Log.e(TAG, "Localization initialized");
+        Log.e(TAG,"my location: "+this.lastLocation.getLatitude() + " "+ this.lastLocation.getLongitude());
     }
 
     /**

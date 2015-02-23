@@ -2,6 +2,7 @@ package project.geoffrey.fr.appdownloaddata;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import project.geoffrey.fr.appdownloaddata.Controller.Controller;
 
@@ -23,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private ArrayAdapter arS;
     private ListView lv;
     String[] countryArray = {"India", "Pakistan", "USA", "UK"};
+    List<String> stations = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +55,23 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         ctl.deleteZipFile();
+        Log.e("ListVeiw","size: "+ctl.getAllStations().size());
+       for (int i=0;i<ctl.getAllStations().size();i++){
 
+           String adress=ctl.getAllStations().get(i).getAdress();
+           String city=ctl.getAllStations().get(i).getCity();
+           float distance = ctl.getDistance().get(i);
+           if(distance >=1000){
+               distance=distance/1000;
+               stations.add(adress+" "+city + " "+ distance + " km");
+           }else {
+               stations.add(adress+" "+city +" "+ distance + " m");
+           }
+
+
+       }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_main,R.id.textView,countryArray );
+                R.layout.activity_main,R.id.textView,stations );
         //Create Graphic User Interface
         lv.setAdapter(adapter);
 

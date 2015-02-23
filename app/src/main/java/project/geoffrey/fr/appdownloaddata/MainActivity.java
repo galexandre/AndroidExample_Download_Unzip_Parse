@@ -22,12 +22,12 @@ public class MainActivity extends ActionBarActivity {
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
     private ArrayAdapter arS;
     private ListView lv;
+    String[] countryArray = {"India", "Pakistan", "USA", "UK"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Create Graphic User Interface
+        lv = (ListView) findViewById(R.id.listView);
 
 
         //We call the controller
@@ -51,6 +51,11 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         ctl.deleteZipFile();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.activity_main,R.id.textView,countryArray );
+        //Create Graphic User Interface
+        lv.setAdapter(adapter);
 
     }
 

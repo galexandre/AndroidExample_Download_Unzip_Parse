@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services;
+package project.geoffrey.fr.appdownloaddata.services;
 
 import android.app.DownloadManager;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services;
+package project.geoffrey.fr.appdownloaddata.services;
 
 import android.location.Location;
 import android.os.Environment;
@@ -9,7 +9,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import project.geoffrey.fr.appdownloaddata.Services.Localization.Localization;
+import project.geoffrey.fr.appdownloaddata.services.Localization.Localization;
 import project.geoffrey.fr.appdownloaddata.model.Station;
 
 /**
@@ -77,14 +76,22 @@ public class ParserImpl implements Parser {
                 Location locationStation = new Location("test");
                 locationStation.setLatitude(st.getLatitude());
                 locationStation.setLongitude(st.getLongitude());
+                //Log.e("Parse","localisation: "+myLocation.getCurrentPosition().getLatitude());
                 //return distance in meter
-                float distance = myLocation.getCurrentPosition().distanceTo(locationStation);
-                //Log.e("Parse","locazion: lat: "+String.valueOf(myLocation.getCurrentPosition().getLatitude()) + " long: "+myLocation.getCurrentPosition().getLongitude());
-                if(distance <= 50000){
-                    Log.e("Parser","distance: "+distance);
+                try{
+                    float distance = myLocation.getCurrentPosition().distanceTo(locationStation);
+                    if(distance <= 800000){
+                        Log.e("Parser","distance: "+distance);
+                        pvd.add(st);
+                        distances.add(distance);
+                    }
+                }catch (NullPointerException e){
+                    Log.e("Error","NullPointerException:" + e);
                     pvd.add(st);
-                    distances.add(distance);
+                    distances.add((float) 0);
                 }
+                //Log.e("Parse","locazion: lat: "+String.valueOf(myLocation.getCurrentPosition().getLatitude()) + " long: "+myLocation.getCurrentPosition().getLongitude());
+
 
             }
         }
@@ -107,18 +114,18 @@ public class ParserImpl implements Parser {
     public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG,ns,"pdv");
         String id = parser.getAttributeValue(0);
-        if(parser.getAttributeValue(1).equals("")){
+        if(parser.getAttributeValue(1).equals("")|| parser.getAttributeValue(1).isEmpty() || parser.getAttributeValue(1).length()==0){
             this.latitude=0;
         }else{
             this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 10 000
-            //Log.e("Parse","Latitude: "+latitude);
+            Log.e("Parse","Latitude: "+latitude);
         }
 
-        if (parser.getAttributeValue(2).equals("")){
+        if (parser.getAttributeValue(2).equals("") || parser.getAttributeValue(2).isEmpty() || parser.getAttributeValue(2).length()==0){
             longitude=0;
         }else{
             this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 10 000
-            //Log.e("Parse","Longitude: "+longitude);
+            Log.e("Parse","Longitude: "+longitude);
         }
 
         String cp = parser.getAttributeValue(3);

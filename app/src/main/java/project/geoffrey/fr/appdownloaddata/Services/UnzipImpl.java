@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services;
+package project.geoffrey.fr.appdownloaddata.services;
 
 import android.os.Environment;
 import android.util.Log;
@@ -18,7 +18,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * Created by Pygmy on 08/02/15.
+ * Created by galexandre on 08/02/15.
  */
 public class UnzipImpl implements Unzip {
 
@@ -32,13 +32,18 @@ public class UnzipImpl implements Unzip {
     private String nameOftheUnzipFile="";
 
     public UnzipImpl(String dataLocation, String nameOfZipFile){
+        Log.e("Zip","Datalocation: "+dataLocation);
         this.locationZipFile=dataLocation;
         this.nameOfFile=Environment.getExternalStorageDirectory().toString()+locationZipFile+"/"+nameOfZipFile;
     }
 
     public void unzipData() throws IOException {
         Log.e("Zip","Starting unzip: "+nameOfFile);
-        is=new FileInputStream(nameOfFile);
+        try{
+            is=new FileInputStream(nameOfFile);
+        }catch (FileNotFoundException fne){
+            Log.e("Test","File not found exception to the unzipdata's function"+fne);
+        }
         zi = new ZipInputStream(is);
 
 

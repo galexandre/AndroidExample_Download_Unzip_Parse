@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services.Localization;
+package project.geoffrey.fr.appdownloaddata.services.Localization;
 
 import android.location.Location;
 

@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services.Localization;
+package project.geoffrey.fr.appdownloaddata.services.Localization;
 
 import android.content.Context;
 import android.location.Location;
@@ -35,11 +35,25 @@ public class LocalizationImpl implements Localization, LocationListener {
      */
     public LocalizationImpl(Context context){
         this.mContext = context;
-        locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        this.lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);/* new Location(LocationManager.GPS_PROVIDER);*/
-        Log.e(TAG, "Localization initialized");
-        Log.e(TAG,"my location: "+this.lastLocation.getLatitude() + " "+ this.lastLocation.getLongitude());
+
+        Log.e(TAG,"context:"+context);
+        try{
+            locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
+            Log.e(TAG, "Localization initialized" + locationManager);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            this.lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);/* new Location(LocationManager.GPS_PROVIDER);*/
+            Log.e(TAG, "Localization initialized");
+            //Log.e(TAG,"my location: "+this.lastLocation.getLatitude() + " "+ this.lastLocation.getLongitude());
+        }catch (NullPointerException nullPointer){
+            Log.e(TAG,"Error: "+nullPointer);
+            Log.e(TAG,"Location-service: "+mContext.LOCATION_SERVICE);
+            //locationManager = new LocationManager(context)
+            Location location = new Location("inCaseOf");
+            location.setLatitude(-1.63);
+            location.setLongitude(48.11);
+            this.lastLocation = location;
+        }
+
     }
 
     /**

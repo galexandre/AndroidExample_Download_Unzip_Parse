@@ -1,10 +1,7 @@
-package project.geoffrey.fr.appdownloaddata.Services;
-
-import android.location.Location;
+package project.geoffrey.fr.appdownloaddata.services;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 

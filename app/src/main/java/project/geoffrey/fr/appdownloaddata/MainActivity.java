@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.geoffrey.fr.appdownloaddata.Controller.Controller;
+import project.geoffrey.fr.appdownloaddata.controller.Controller;
 
 
 public class MainActivity extends ActionBarActivity {

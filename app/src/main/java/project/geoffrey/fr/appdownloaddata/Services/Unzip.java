@@ -1,4 +1,4 @@
-package project.geoffrey.fr.appdownloaddata.Services;
+package project.geoffrey.fr.appdownloaddata.services;
 
 import java.io.IOException;
 import java.text.ParseException;

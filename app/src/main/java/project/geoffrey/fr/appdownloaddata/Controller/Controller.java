@@ -1,23 +1,22 @@
-package project.geoffrey.fr.appdownloaddata.Controller;
+package project.geoffrey.fr.appdownloaddata.controller;
 
 import android.content.Context;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import project.geoffrey.fr.appdownloaddata.Services.DownloadData;
-import project.geoffrey.fr.appdownloaddata.Services.DownloadDataImpl;
-import project.geoffrey.fr.appdownloaddata.Services.Localization.Localization;
-import project.geoffrey.fr.appdownloaddata.Services.Localization.LocalizationImpl;
-import project.geoffrey.fr.appdownloaddata.Services.Parser;
-import project.geoffrey.fr.appdownloaddata.Services.ParserImpl;
-import project.geoffrey.fr.appdownloaddata.Services.Unzip;
-import project.geoffrey.fr.appdownloaddata.Services.UnzipImpl;
+import project.geoffrey.fr.appdownloaddata.services.DownloadData;
+import project.geoffrey.fr.appdownloaddata.services.DownloadDataImpl;
+import project.geoffrey.fr.appdownloaddata.services.Localization.Localization;
+import project.geoffrey.fr.appdownloaddata.services.Localization.LocalizationImpl;
+import project.geoffrey.fr.appdownloaddata.services.Parser;
+import project.geoffrey.fr.appdownloaddata.services.ParserImpl;
+import project.geoffrey.fr.appdownloaddata.services.Unzip;
+import project.geoffrey.fr.appdownloaddata.services.UnzipImpl;
 import project.geoffrey.fr.appdownloaddata.model.Station;
 
 /**
@@ -49,7 +48,7 @@ public class Controller {
     }
 
     public void UnzipFile() throws IOException, ParseException {
-        uz = new UnzipImpl("/DataDownload","data.zip");
+        uz = new UnzipImpl(dd.getFileLocation(),"data.zip");
         uz.unzipData();
         Date k = uz.getDateOfUnzipFile();
     }

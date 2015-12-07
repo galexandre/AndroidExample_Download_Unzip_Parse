@@ -74,6 +74,6 @@ public class StationTest {
 
     @Test
     public void testSetPrices() throws Exception {
-       
+
     }
 }

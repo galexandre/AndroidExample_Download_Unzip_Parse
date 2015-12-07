@@ -19,6 +19,10 @@ public class Station {
     private Map<String, Float> prices;
     private String zipcode;
 
+    public Station(){
+        //empty constructor
+    }
+
     public Station(String id, float longitude, float latitude, String adress, String city, String open, List<String> services, List<String> price) {
         this.id = id;
         this.longitude = longitude;
